@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <title>BL STORE | @ViewBag.Title</title>
+</head>
+
+<body>  
+
+    @Html.Partial("_menu")
+
+    <div class="container mt-3">
+        @RenderBody()
+    </div>
+
+    <footer class="footer bg-primary footer-custom">
+        <div class="container">
+            <span class="text-muted">&copy; @DateTime.Now.Year BL Corporation</span>
+        </div>
+    </footer>
+
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    @RenderSection("scripts", false)
+
+</body>
+
+</html>
+
+
+@*https://www.youtube.com/watch?v=YQ_caFwL2N0&list=PLzKclr7RPbI1x48XgRBBbgAlM8eGaf5Qn&index=7*@
