@@ -54,6 +54,11 @@
     <Compile Include="EF\BLStoreDataContext.cs" />
     <Compile Include="EF\DbInitializer.cs" />
     <Compile Include="EF\Maps\ProdutoMap.cs" />
+    <Compile Include="EF\Maps\TipoDeProdutoMap.cs" />
+    <Compile Include="EF\Maps\UsuarioMap.cs" />
+    <Compile Include="EF\Repositories\IProdutoRepositoryEF.cs" />
+    <Compile Include="EF\Repositories\ProdutoRepositoryEF.cs" />
+    <Compile Include="EF\Repositories\RepositoryEF.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

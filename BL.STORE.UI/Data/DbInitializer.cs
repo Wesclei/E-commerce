@@ -26,12 +26,19 @@ namespace BL.STORE.UI.Data
 
             context.Produtos.AddRange(produtos);
 
-            context.Usuarios.Add(new Usuario()
-            {
-                Nome = "Billy",
-                Email = "billy@gmail.com",
-                Senha = "123456".Encrypt()
-            });
+            context.Usuarios.AddRange(
+                new List<Usuario>() {
+                    new Usuario() {
+                        Nome = "Jessica",
+                        Email = "jessica@gmail.com",
+                        Senha = "Jessica123".Encrypt()
+                    },
+                     new Usuario() {
+                        Nome = "Billy",
+                        Email = "billy@gmail.com",
+                        Senha = "123456".Encrypt()
+                     },
+                });
 
 
             context.SaveChanges();

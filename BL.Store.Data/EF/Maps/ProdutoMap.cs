@@ -19,7 +19,7 @@ namespace BL.Store.Data.EF.Maps
             Property(c => c.TipoDeProdutoId);
             Property(c => c.DataCadastro);
             //Relacionamento 1 tipo de produto esta relacionado a 1 tipo de produto, e 1 tipo de produto esta relacionado a N produtos
-            HasRequired(prod => prod.TipoDeProduto).WithMany(tipo => tipo.Produtos);
+            HasRequired(prod => prod.TipoDeProduto).WithMany(tipo => tipo.Produtos).HasForeignKey(fk => fk.TipoDeProdutoId);
         }
     }
 }

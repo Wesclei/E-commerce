@@ -16,5 +16,11 @@ namespace BL.Store.Data.EF
 
         public DbSet<Usuario> Usuarios { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new Maps.ProdutoMap());
+            modelBuilder.Configurations.Add(new Maps.TipoDeProdutoMap());
+            modelBuilder.Configurations.Add(new Maps.UsuarioMap());
+        }
     }
 }
