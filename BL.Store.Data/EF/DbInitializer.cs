@@ -6,9 +6,9 @@ using System.Data.Entity;
 
 namespace BL.Store.Data.EF
 {
-    internal class DbInitializer : CreateDatabaseIfNotExists<BLStoreDataContext>
+    internal class DbInitializer : CreateDatabaseIfNotExists<BLStoreDataContextEF>
     {
-        protected override void Seed(BLStoreDataContext context)
+        protected override void Seed(BLStoreDataContextEF context)
         {
             var alimento = new TipoDeProduto() { Nome = "Alimento" };
             var higiene = new TipoDeProduto() { Nome = "Higiene" };
@@ -33,7 +33,6 @@ namespace BL.Store.Data.EF
                 Email = "billy@gmail.com",
                 Senha = "123456".Encrypt()
             });
-
 
             context.SaveChanges();
         }

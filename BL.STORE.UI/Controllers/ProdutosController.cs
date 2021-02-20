@@ -1,73 +1,82 @@
-﻿using BL.STORE.UI.Data;
-using BL.STORE.UI.Models;
-using System.Linq;
+﻿using BL.Store.Data.EF.Repositories;
+using BL.Store.Domain.Contracts.Repositories;
+using BL.Store.Domain.Entities;
 using System.Web.Mvc;
+using BL.STORE.UI.ViewModels.Produtos.Index.Maps;
+using BL.STORE.UI.ViewModels.Produtos.AddEdit.Maps;
+using BL.STORE.UI.ViewModels.Produtos.AddEdit;
 
 namespace BL.STORE.UI.Controllers
 {
     [Authorize] // Autenticação
     public class ProdutosController:Controller
     {
-        private readonly BLStoreDataContext _ctx = new BLStoreDataContext();
+        private readonly IProdutoRepository _produtoRepository;
+        private readonly ITipoDeProdutoRepository _tipoDeProdutoRepository;
+       
+        public ProdutosController(IProdutoRepository produtoRepository, ITipoDeProdutoRepository tipoDeProdutoRepository)
+        {
+            _produtoRepository = produtoRepository;
+            _tipoDeProdutoRepository = tipoDeProdutoRepository;
+        }
 
         public ViewResult Index()
         {
-            
-             var produtos = _ctx.Produtos.ToList(); 
-
+            var produtos = _produtoRepository.Get().ToProdutoIndexVM(); 
             return View(produtos);
         }
 
         [HttpGet]
         public ViewResult AddEdit(int? id)
         {
-            Produto produto = new Produto();
+            var produto = new ProdutoAddEditVM();
             if(id != null)
             {
-                produto = _ctx.Produtos.Find(id);
+                produto = _produtoRepository.Get((int)id).ToProdutoAddEditVM();
             }
-            var tipos = _ctx.TipoDeProdutos.ToList();
+            var tipos = _tipoDeProdutoRepository.Get();
             ViewBag.Tipos = tipos;
             return View(produto);
         }
 
         [HttpPost]
-        public ActionResult AddEdit(Produto produto)
+        public ActionResult AddEdit(ProdutoAddEditVM produtoVM)
         {
+            var produto = produtoVM.ToProduto();
+
             if (ModelState.IsValid)
             {
                 if(produto.Id == 0)
             {
-                _ctx.Produtos.Add(produto);
+                _produtoRepository.Add(produto);
             }
             else
             {
-                _ctx.Entry(produto).State = System.Data.Entity.EntityState.Modified;
-            }
+                    _produtoRepository.Edit(produto);
+            }            
             
-            _ctx.SaveChanges();
             return RedirectToAction("Index");
             }
-            var tipos = _ctx.TipoDeProdutos.ToList();
+            var tipos = _tipoDeProdutoRepository.Get();
             ViewBag.Tipos = tipos;
             return View(produto);
         }
 
         public ActionResult DelProd(int id)
         {
-            var produto = _ctx.Produtos.Find(id);
+            var produto = _produtoRepository.Get(id);
             if(produto == null)
             {
                 return HttpNotFound();
             }
-            _ctx.Produtos.Remove(produto);
-            _ctx.SaveChanges();
+            _produtoRepository.Delete(produto);
             return null;
         }
 
         protected override void Dispose(bool disposing)
         {
-            _ctx.Dispose();
+            _produtoRepository.Dispose();
+            _tipoDeProdutoRepository.Dispose();
         }
 
     }

@@ -1,50 +1,17 @@
-﻿using BL.Store.Domain.Entities;
-using System;
+﻿using BL.Store.Domain.Contracts.Repositories;
+using BL.Store.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace BL.Store.Data.EF.Repositories
 {
-    public class ProdutoRepositoryEF<T> : IDisposable, IProdutoRepositoryEF<T> where T : EntIty
+    public class ProdutoRepositoryEF : RepositoryEF<Produto>, IProdutoRepository
     {
-        private readonly BLStoreDataContext _ctx = new BLStoreDataContext();
+        public ProdutoRepositoryEF(BLStoreDataContextEF ctx) : base(ctx) { }
 
-        public IEnumerable<T> Get()
+        public IEnumerable<Produto> GetByNameContrains(string contains)
         {
-            return _ctx.Set<T>().ToList();
-        }
-
-        public T Get(int id)
-        {
-            return _ctx.Set<T>().Find(id);
-        }
-
-        public void Add(T entity)
-        {
-            _ctx.Set<T>().Add(entity);
-            Save();
-        }
-
-        public void Edit(T entity)
-        {
-            _ctx.Entry(entity).State = System.Data.Entity.EntityState.Modified;
-            Save();
-        }
-
-        public void Delete(T entity)
-        {
-            _ctx.Set<T>().Remove(entity);
-            Save();
-        }
-
-        private void Save()
-        {
-            _ctx.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            _ctx.Dispose();
+            return _ctx.Produtos.Where(p => p.Nome.Contains(contains));
         }
     }
 }

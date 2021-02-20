@@ -104,6 +104,15 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mvc5, Version=1.4.0.0, Culture=neutral, PublicKeyToken=43da31bc42a85347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc5.1.4.0\lib\net45\Unity.Mvc5.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -295,22 +304,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
-    <Compile Include="Controllers\TesteController.cs" />
-    <Compile Include="Data\BLStoreDataContext.cs" />
-    <Compile Include="Data\DbInitializer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infra\Helpers\StringHelpers.cs" />
-    <Compile Include="Models\EntIty.cs" />
-    <Compile Include="Models\LoginVM.cs" />
-    <Compile Include="Models\Produto.cs" />
-    <Compile Include="Models\TipoDeProduto.cs" />
-    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Conta\Login\LoginVM.cs" />
+    <Compile Include="ViewModels\Produtos\AddEdit\Maps\Extensions.cs" />
+    <Compile Include="ViewModels\Produtos\AddEdit\ProdutoAddEditVM.cs" />
+    <Compile Include="ViewModels\Produtos\Index\Maps\Extensions.cs" />
+    <Compile Include="ViewModels\Produtos\Index\ProdutoIndexVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -350,6 +356,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BL.Store.Data\BL.Store.Data.csproj">
+      <Project>{37cd5a41-1380-4475-a9aa-077bcd86696a}</Project>
+      <Name>BL.Store.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BL.Store.Domain\BL.Store.Domain.csproj">
+      <Project>{d4445924-4c1f-467e-bf57-aea431bb2f0d}</Project>
+      <Name>BL.Store.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

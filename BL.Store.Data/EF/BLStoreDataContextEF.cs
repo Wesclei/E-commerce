@@ -3,9 +3,9 @@ using System.Data.Entity;
 
 namespace BL.Store.Data.EF
 {
-    public class BLStoreDataContext : DbContext
+    public class BLStoreDataContextEF : DbContext
     {
-        public BLStoreDataContext() : base(@"StoreConn")
+        public BLStoreDataContextEF() : base(@"StoreConn")
         {
             //Caso a base de dados não exista, crie...
             Database.SetInitializer(new DbInitializer());

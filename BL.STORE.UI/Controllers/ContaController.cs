@@ -1,7 +1,6 @@
-﻿using BL.STORE.UI.Data;
-using BL.STORE.UI.Infra.Helpers;
-using BL.STORE.UI.Models;
-using System.Linq;
+﻿using BL.Store.Domain.Contracts.Repositories;
+using BL.Store.Domain.Helpers;
+using BL.STORE.UI.ViewModels.Conta.Login;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -10,7 +9,12 @@ namespace BL.STORE.UI.Controllers
     public class ContaController : Controller
     {
         // instanciar para a classe toda apenas uma vez - readonly
-        private readonly BLStoreDataContext _ctx = new BLStoreDataContext();
+        private readonly IUsuarioRepository _usuarioRepository;
+
+        public ContaController(IUsuarioRepository usuarioRepository)
+        {
+            _usuarioRepository = usuarioRepository;
+        }
 
         [HttpGet]
         public ActionResult Login(string returnURL)
@@ -22,8 +26,7 @@ namespace BL.STORE.UI.Controllers
         [HttpPost]
         public ActionResult Login(LoginVM model)
         {
-            var usuario = _ctx.Usuarios.FirstOrDefault(u => u.Email.ToLower() == model.Email.ToLower());
-
+            var usuario = _usuarioRepository.Get(model.Email);
             if (usuario == null)
             {
                 ModelState.AddModelError("Email", "E-mail não localizado.");
@@ -54,11 +57,7 @@ namespace BL.STORE.UI.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
-        protected override void Dispose(bool disposing)
-        {
-            //Encerra a seção com o banco.
-            _ctx.Dispose();
-        }
+        protected override void Dispose(bool disposing) { }
     }
 }
 

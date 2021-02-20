@@ -1,4 +1,6 @@
-﻿@{ 
+﻿@using BL.STORE.UI.ViewModels.Produtos.Index
+
+@{ 
     ViewBag.Title = "Listagem de Produtos";
 }
 
@@ -21,12 +23,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (BL.STORE.UI.Models.Produto produto in Model)
+            @foreach (ProdutoIndexVM produto in Model)
             {
                 <tr id="produto-@produto.Id">
                     <td>@produto.Nome</td>
-                    <td>@produto.Preco</td>
-                    <td>@produto.TipoDeProduto.Nome</td>
+                    <td>@produto.Preco.ToString("C2")</td>
+                    <td>@produto.Tipo</td>
                     <td>@produto.Qtde</td>
                     <td>@produto.DataCadastro</td>
                     <td class="btn-group">
